@@ -35,11 +35,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LW_OOPC_SUPPORT_MEMORY_LEAK_DETECTOR 0   
 
 
-typedef unsigned int size_t;
 #if LW_OOPC_USE_STDDEF_OFFSETOF
     #include <stddef.h>
     #define LW_OOPC_OFFSETOF offsetof
 #else
+	typedef unsigned int size_t;
     #define LW_OOPC_OFFSETOF(s,m) (size_t)&(((s*)0)->m)
 #endif
 
