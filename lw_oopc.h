@@ -30,8 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LW_OOPC_H_INCLUDED_
 
 
-#define LW_OOPC_USE_STDDEF_OFFSETOF 1
-#define LW_OOPC_MMSUPPORT 1
+#define LW_OOPC_USE_STDDEF_OFFSETOF 0
+#define LW_OOPC_MMSUPPORT 0
 #define LW_OOPC_SUPPORT_MEMORY_LEAK_DETECTOR 0   
 
 
@@ -89,8 +89,8 @@ struct type
 #if LW_OOPC_MMSUPPORT
     #if LW_OOPC_SUPPORT_MEMORY_LEAK_DETECTOR
         #define CTOR(type) \
-        type* type##_new(const char* file, int line) \ 
-        { \
+        type* type##_new(const char* file, int line) { \
+        \
             struct type *cthis; \
             cthis = (struct type*)lw_oopc_malloc(sizeof(struct type), #type, file, line); \
             if(!cthis) \
@@ -121,8 +121,8 @@ struct type
     #endif
 #else
     #define CTOR(type) \
-    type* type##_new() \ 
-    { \
+    type* type##_new() { \
+     \
         static struct type cthis; \
         type##_ctor(&cthis); \
         return &cthis; \
@@ -138,8 +138,8 @@ struct type
 
 #if LW_OOPC_MMSUPPORT
     #define DTOR(type) \
-    void type##_delete(type* cthis) \
-    { \
+    void type##_delete(type* cthis) { \
+    \
         if(type##_dtor(cthis)) \
         { \
             lw_oopc_free(cthis); \
@@ -164,7 +164,7 @@ void type##_ctor(type* cthis) {
 
 #define EXTENDS(type) struct type type
 
-#define SUPER_PTR(cthis, father) ((father*)(&(cthis->##father)))
+#define SUPER_PTR(cthis, father) ((father*)(&(cthis->father)))
 
 #define SUPER_PTR_2(cthis, father, grandfather) \
 SUPER_PTR(SUPER_PTR(cthis, father), grandfather)
